@@ -1,0 +1,10 @@
+{
+    "name": "twilio/twilio",
+    "description": "Twilio Sms API",
+    "type": "library",
+    "require": {
+        "twilio/sdk": "^6.37",
+        "africastalking/africastalking": "^3.0",
+        "firebase/php-jwt": "^6.1"
+    }
+}
