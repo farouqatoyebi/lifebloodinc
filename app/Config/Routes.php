@@ -30,6 +30,7 @@ $routes->setAutoRoute(false);
  */
 
 // On-Boarding routes
+$routes->get('/', 'HomepageController::index');
 $routes->get('/login', 'AuthController::webLoginPage');
 $routes->get('/register', 'AuthController::webRegisterPage');
 $routes->get('/register/(:any)', 'AuthController::webRegisterPage');

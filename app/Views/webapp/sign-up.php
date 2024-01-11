@@ -31,7 +31,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Register</title>
     <meta name="description" content="Register your account"/>
-    <link rel="icon" type="image/png" sizes="16x16" href="http://betalifehealth.com/images/logo/logo-500.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="">
     <link href="<?php echo base_url().'/webapp/css/style.css'; ?>" rel="stylesheet" type="text/css"/>
     
         <style>
@@ -130,7 +130,7 @@
                                     <div class="d-flex justify-content-between border border-dark bg-white shadow p-5 rounded">
                                         <span>
                                             <h5 class="text-dark">Hospital</h5>
-                                            <small class="text-muted">Register as a hospital to get closer to blood banks, donors etc</small>
+                                            <small class="text-muted">Register as a hospital to get closer to blood banks.</small>
                                         </span>
                                         <i class="fa fa-arrow-right mt-1"></i>
                                     </div>
@@ -142,7 +142,7 @@
                                     <div class="d-flex justify-content-between border border-dark bg-white shadow p-5 rounded">
                                         <span>
                                             <h5 class="text-dark">Blood Bank</h5>
-                                            <small class="text-muted">Register as a hospital to deliver blood to hospitals, patients etc</small>
+                                            <small class="text-muted">Register as a hospital to deliver blood to hospitals.</small>
                                         </span>
                                         <i class="fa fa-arrow-right mt-1"></i>
                                     </div>

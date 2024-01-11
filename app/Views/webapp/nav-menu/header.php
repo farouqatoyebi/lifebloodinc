@@ -22,7 +22,7 @@
     <title><?php echo $page_title; ?></title>
 	
 	<meta name="description" content="Some description for the page"/>
-    <link rel="icon" type="image/png" sizes="16x16" href="http://betalifehealth.com/images/logo/logo-500.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="#">
 	<!-- <link href="<?php echo base_url().'/webapp/vendor/bootstrap-select/dist/css/bootstrap-select.min.css'; ?>" rel="stylesheet" type="text/css"/> -->
 	<link href="<?php echo base_url().'/webapp/vendor/owl-carousel/owl.carousel.css'; ?>" rel="stylesheet" type="text/css"/>
 	<link href="<?php echo base_url().'/webapp/css/style.css?v=1.0.2'; ?>" rel="stylesheet" type="text/css"/>
@@ -260,7 +260,7 @@
                         
                     </div>
                     <div class="copyright">
-                        <p class="fs-14 font-w200"><strong class="font-w400"></strong> <span class="font-weight-bold">&copy; <?php echo date("Y"); ?></span> All Rights Reserved</p>
+                        <!-- <p class="fs-14 font-w200"><strong class="font-w400"></strong> <span class="font-weight-bold">&copy; <?php echo date("Y"); ?></span> All Rights Reserved</p> -->
                     </div>
                 </div>
             </div>

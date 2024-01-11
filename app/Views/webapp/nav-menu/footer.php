@@ -1,6 +1,8 @@
             <div class="footer">
-                <div class="copyright">
-                    <p>Copyright © <?php echo date("Y"); ?></p>
+                <div class="copyright text-center">
+                    <?php echo date("Y"); ?> &copy; Copyright 
+                    <strong><span>LifelineBlood</span></strong>. 
+                    A dissertation project by Boluwatife Folorunso
                 </div>
             </div>
         </div>
