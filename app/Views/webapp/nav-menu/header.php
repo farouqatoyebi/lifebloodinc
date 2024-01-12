@@ -170,11 +170,11 @@
                             <li>
                                 <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                                     <i class="flaticon-381-networking"></i>
-                                    <span class="nav-text">Blood Donation</span>
+                                    <span class="nav-text">Make Request</span>
                                 </a>
                                 <ul aria-expanded="false">
                                     <li><a href="<?php echo base_url().'/request-blood'; ?>">New Blood Request</a></li>
-                                    <li><a href="<?php echo base_url().'/accept-donors'; ?>">Accept Donors</a></li>
+                                    <li><a href="<?php echo base_url().'/accept-donors'; ?>">View Responses</a></li>
                                     <!-- <li><a href="<?php echo base_url().'/my-activities'; ?>">My Activities</a></li> -->
                                 </ul>
                             </li>
