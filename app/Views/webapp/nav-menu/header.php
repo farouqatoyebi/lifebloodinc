@@ -206,12 +206,11 @@
                             <li>
                                 <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                                     <i class="flaticon-381-networking"></i>
-                                    <span class="nav-text">Donate Blood</span>
+                                    <span class="nav-text">Blood Requests</span>
                                 </a>
                                 <ul aria-expanded="false">
                                     <li><a href="<?php echo base_url().'/browse-blood-requests'; ?>">Browse Requests</a></li>
                                     <li><a href="<?php echo base_url().'/browse-activities'; ?>">Pending Activities</a></li>
-                                    <li><a href="#">Chat</a></li>
                                 </ul>
                             </li>
                             
