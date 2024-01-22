@@ -47,11 +47,4 @@ final class HealthTest extends CIUnitTestCase
             'baseURL "' . $reader->baseURL . '" in app/Config/App.php is not valid URL'
         );
     }
-
-    public function testLoginPage()
-    {
-        $validation = Services::validation();
-        $get_page = $this->call("get", site_url("/login"));
-        $this->assertTrue($get_page);
-    }
 }

@@ -89,9 +89,6 @@ class Notifications extends Model
             $action_type = "offer";
             $crafted_msg = "A new offer has been sent by account_type_here - account_name_here. Click <a href=\"request_offer_url_here\" class=\"text-decoration-none text-primary\">here</a> to view offers.";
         }
-        elseif ($auth_type == 'pharmacy') {
-            $sql = "";
-        }
 
         if ($sql) {
             $query = $this->db->query($sql);
@@ -112,11 +109,6 @@ class Notifications extends Model
                     }
                     elseif ($value->auth_type == 'blood-bank') {
                         $account_type = "a Blood Bank";
-                        $account_name = $userInfo->name;
-                        $request_offer_url = "";
-                    }
-                    elseif ($value->auth_type == 'pharmacy') {
-                        $account_type = "a Pharmacy";
                         $account_name = $userInfo->name;
                         $request_offer_url = "";
                     }

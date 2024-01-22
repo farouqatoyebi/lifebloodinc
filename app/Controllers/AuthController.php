@@ -10,7 +10,6 @@ use \Firebase\JWT\Key;
 use \AfricasTalking\SDK\AfricasTalking;
 use App\Models\BloodBankModel;
 use App\Models\HospitalModel;
-use App\Models\PharmacyModel;
 
 class AuthController extends BaseController
 {
@@ -25,7 +24,7 @@ class AuthController extends BaseController
         // $this->otp_expiry_period = strtotime('+15 minutes', time());  // 15mins
         // $this->token_expiry = strtotime('+1 years', time());    // 1year
         $this->arrayOfAcceptableAccountTypes = [
-            'hospital', 'blood-bank', 'pharmacy'
+            'hospital', 'blood-bank'
         ];
         
         helper(['form', 'filesystem']);
@@ -351,9 +350,6 @@ class AuthController extends BaseController
                     }
                     elseif ($account_type == 'hospital') {
                         $profileToInsert = new HospitalModel();
-                    }
-                    elseif ($account_type == 'pharmacy') {
-                        $profileToInsert = new PharmacyModel();
                     }
 
                     $profileToInsert->insert([

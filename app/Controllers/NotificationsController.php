@@ -10,7 +10,7 @@ class NotificationsController extends BaseController
     public function __construct()
     {
         $this->arrayOfAcceptableAccountTypes = [
-            'hospital', 'blood-bank', 'pharmacy'
+            'hospital', 'blood-bank'
         ];
 
         $this->accountAuthID = session("auth_id");

@@ -227,24 +227,6 @@
                                     <span class="nav-text">Inventory</span>
                                 </a>
                             </li> -->
-                        <?php } elseif (session('acct_type') == 'pharmacy') { ?>
-                            <li>
-                                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                                    <i class="flaticon-381-networking"></i>
-                                    <span class="nav-text">Health Pay</span>
-                                </a>
-                                <ul aria-expanded="false">
-                                    <li><a href="<?php echo base_url().'/transactions'; ?>">Transactions</a></li>
-                                    <li><a href="<?php echo base_url().'/health-insurance'; ?>">Health Insurance</a></li>
-                                    <li><a href="#">Chat</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="<?php echo base_url().'/wallet'; ?>" class="ai-icon" aria-expanded="false">
-                                    <i class="flaticon-381-briefcase"></i>
-                                    <span class="nav-text">Wallet</span>
-                                </a>
-                            </li>
                         <?php } ?>
                         
                         <li>

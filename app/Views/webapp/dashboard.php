@@ -30,11 +30,7 @@
                     <div class="card-body">
                         <div class="media align-items-center">
                             <div class="media-body">
-                                <?php if (session('acct_type') == 'pharmacy') { ?>
-                                    <p class="mb-1">Total Patients</p>
-                                <?php } else { ?>
-                                    <p class="mb-1">Total Requests</p>
-                                <?php } ?>
+                                <p class="mb-1">Total Requests</p>
                                 <div class="d-flex flex-wrap">
                                     <h2 class="fs-40 font-w600 text-white mb-0 mr-3"><?php echo number_format($no_of_requests) ?></h2>
                                 </div>
@@ -55,8 +51,6 @@
                             <div class="media-body">
                                 <?php if (session('acct_type') == 'hospital') { ?>
                                     <p class="mb-1">Blood Banks</p>
-                                <?php } elseif (session('acct_type') == 'pharmacy') { ?>
-                                    <p class="mb-1">Transactions</p>
                                 <?php } else { ?>
                                     <p class="mb-1">Hospitals</p>
                                 <?php } ?>
@@ -65,15 +59,9 @@
                                 </div>
                             </div>
                             <span class="border rounded-circle p-4">
-                            <?php if (session('acct_type') == 'pharmacy') { ?>
-                                    <svg width="34" height="34" viewBox="0 0 21 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9.21864 35H11.6667V31.7747C17.7104 31.496 21.0001 27.7133 21.0001 23.413C21.0001 17.2412 15.7596 16.0865 11.6667 14.8919V8.72014C12.7378 9.11832 13.4645 10.0341 13.6175 11.5074H20.6175C20.2733 6.45051 16.9072 3.66325 11.6667 3.22526V0H9.21864V3.22526C4.01645 3.58362 6.10352e-05 6.53015 6.10352e-05 11.5074C6.10352e-05 17.7588 5.12574 18.9534 9.21864 20.0683V26.3595C7.91809 25.9215 7.15307 24.9261 7.00006 23.2935H0.0383124C0.229569 28.43 4.01645 31.2571 9.21864 31.7349V35ZM14.1531 23.6519C14.1531 25.1251 13.1968 26.2002 11.6667 26.479V20.8248C13.1585 21.4221 14.1531 22.2184 14.1531 23.6519ZM6.92356 11.1889C6.92356 9.63595 7.80334 8.75995 9.21864 8.52105V14.0557C7.84159 13.4187 6.92356 12.5825 6.92356 11.1889Z" fill="white"/>
-                                    </svg>
-                                <?php } else { ?>
-                                    <svg width="34" height="34" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M37.3333 15.6666C37.3383 14.7488 37.0906 13.8473 36.6174 13.061C36.1441 12.2746 35.4635 11.6336 34.6501 11.2084C33.8368 10.7831 32.9221 10.5899 32.0062 10.65C31.0904 10.7101 30.2087 11.021 29.4579 11.5489C28.707 12.0767 28.1159 12.8011 27.7494 13.6425C27.3829 14.484 27.255 15.4101 27.3799 16.3194C27.5047 17.2287 27.8774 18.086 28.4572 18.7976C29.0369 19.5091 29.8013 20.0473 30.6667 20.3533V25.6666C30.6667 27.8768 29.7887 29.9964 28.2259 31.5592C26.6631 33.122 24.5435 34 22.3333 34C20.1232 34 18.0036 33.122 16.4408 31.5592C14.878 29.9964 14 27.8768 14 25.6666V23.8666C16.7735 23.4642 19.3097 22.0777 21.1456 19.9603C22.9815 17.8429 23.9946 15.1358 24 12.3333V2.33329C24 1.89127 23.8244 1.46734 23.5118 1.15478C23.1993 0.842221 22.7754 0.666626 22.3333 0.666626H17.3333C16.8913 0.666626 16.4674 0.842221 16.1548 1.15478C15.8423 1.46734 15.6667 1.89127 15.6667 2.33329C15.6667 2.77532 15.8423 3.19924 16.1548 3.5118C16.4674 3.82436 16.8913 3.99996 17.3333 3.99996H20.6667V12.3333C20.6667 14.5434 19.7887 16.663 18.2259 18.2258C16.6631 19.7887 14.5435 20.6666 12.3333 20.6666C10.1232 20.6666 8.00358 19.7887 6.44077 18.2258C4.87797 16.663 4 14.5434 4 12.3333V3.99996H7.33333C7.77536 3.99996 8.19928 3.82436 8.51184 3.5118C8.8244 3.19924 9 2.77532 9 2.33329C9 1.89127 8.8244 1.46734 8.51184 1.15478C8.19928 0.842221 7.77536 0.666626 7.33333 0.666626H2.33333C1.8913 0.666626 1.46738 0.842221 1.15482 1.15478C0.842259 1.46734 0.666664 1.89127 0.666664 2.33329V12.3333C0.672024 15.1358 1.68515 17.8429 3.52106 19.9603C5.35697 22.0777 7.8932 23.4642 10.6667 23.8666V25.6666C10.6667 28.7608 11.8958 31.7283 14.0837 33.9162C16.2717 36.1041 19.2391 37.3333 22.3333 37.3333C25.4275 37.3333 28.395 36.1041 30.5829 33.9162C32.7708 31.7283 34 28.7608 34 25.6666V20.3533C34.9723 20.0131 35.8151 19.3797 36.4122 18.5402C37.0092 17.7008 37.3311 16.6967 37.3333 15.6666Z" fill="white"/>
-                                    </svg>
-                                <?php } ?>
+                                <svg width="34" height="34" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M37.3333 15.6666C37.3383 14.7488 37.0906 13.8473 36.6174 13.061C36.1441 12.2746 35.4635 11.6336 34.6501 11.2084C33.8368 10.7831 32.9221 10.5899 32.0062 10.65C31.0904 10.7101 30.2087 11.021 29.4579 11.5489C28.707 12.0767 28.1159 12.8011 27.7494 13.6425C27.3829 14.484 27.255 15.4101 27.3799 16.3194C27.5047 17.2287 27.8774 18.086 28.4572 18.7976C29.0369 19.5091 29.8013 20.0473 30.6667 20.3533V25.6666C30.6667 27.8768 29.7887 29.9964 28.2259 31.5592C26.6631 33.122 24.5435 34 22.3333 34C20.1232 34 18.0036 33.122 16.4408 31.5592C14.878 29.9964 14 27.8768 14 25.6666V23.8666C16.7735 23.4642 19.3097 22.0777 21.1456 19.9603C22.9815 17.8429 23.9946 15.1358 24 12.3333V2.33329C24 1.89127 23.8244 1.46734 23.5118 1.15478C23.1993 0.842221 22.7754 0.666626 22.3333 0.666626H17.3333C16.8913 0.666626 16.4674 0.842221 16.1548 1.15478C15.8423 1.46734 15.6667 1.89127 15.6667 2.33329C15.6667 2.77532 15.8423 3.19924 16.1548 3.5118C16.4674 3.82436 16.8913 3.99996 17.3333 3.99996H20.6667V12.3333C20.6667 14.5434 19.7887 16.663 18.2259 18.2258C16.6631 19.7887 14.5435 20.6666 12.3333 20.6666C10.1232 20.6666 8.00358 19.7887 6.44077 18.2258C4.87797 16.663 4 14.5434 4 12.3333V3.99996H7.33333C7.77536 3.99996 8.19928 3.82436 8.51184 3.5118C8.8244 3.19924 9 2.77532 9 2.33329C9 1.89127 8.8244 1.46734 8.51184 1.15478C8.19928 0.842221 7.77536 0.666626 7.33333 0.666626H2.33333C1.8913 0.666626 1.46738 0.842221 1.15482 1.15478C0.842259 1.46734 0.666664 1.89127 0.666664 2.33329V12.3333C0.672024 15.1358 1.68515 17.8429 3.52106 19.9603C5.35697 22.0777 7.8932 23.4642 10.6667 23.8666V25.6666C10.6667 28.7608 11.8958 31.7283 14.0837 33.9162C16.2717 36.1041 19.2391 37.3333 22.3333 37.3333C25.4275 37.3333 28.395 36.1041 30.5829 33.9162C32.7708 31.7283 34 28.7608 34 25.6666V20.3533C34.9723 20.0131 35.8151 19.3797 36.4122 18.5402C37.0092 17.7008 37.3311 16.6967 37.3333 15.6666Z" fill="white"/>
+                                </svg>
                             </span>
                         </div>
                     </div>
@@ -161,11 +149,7 @@
             <div class="col-xl-12 col-xxl-12 col-lg-12">
                 <div class="card">	
                     <div class="card-header d-sm-flex d-block border-0 pb-0">
-                        <?php if (session('acct_type') == 'pharmacy') { ?>
-                            <h3 class="fs-20 mb-3 mb-sm-0 text-black">Transaction Flow</h3>
-                        <?php } else { ?>
-                            <h3 class="fs-20 mb-3 mb-sm-0 text-black">Blood Requests</h3>
-                        <?php } ?>
+                        <h3 class="fs-20 mb-3 mb-sm-0 text-black">Blood Requests</h3>
                     </div>
                     <div class="card-body">
                         <div id="chartBar"></div>
@@ -195,124 +179,58 @@
                 $topRated = $basecontroller->topRatedInstitutions($auth_id->id, session('acct_type'));
             ?>
             
-            <?php if (session('acct_type') != 'pharmacy') { ?>
-                <div class="<?php echo (count($lastFiveVisitors)) ? 'col-xl-9 col-xxl-8 col-lg-7' : 'col-12' ?>">
-                    <div class="card">	
-                        <div class="card-header border-0 pb-0">
-                            <h3 class="fs-20 mb-0 text-black"><?php echo $graphTitle; ?></h3>
-                        </div>
-                        <div class="card-body">
-                            <?php if (count($topRated)) { ?>
-                                <div class="assigned-doctor owl-carousel">
-                                    <?php foreach ($topRated as $value) { ?>
-                                        <div class="items">
-                                            <div class="text-center">
-                                                <img src="<?php echo $value['logo']; ?>" alt="" >
-                                                <h5 class="fs-16 mb-1 font-w600"><a class="text-black" href="#" onclick="event.preventDefault()"><?php echo $value['name']; ?></a></h5>
-                                                <span class="text-primary mb-2 d-block"><?php echo $ratedType ?></span>
-                                                <p class="fs-12"><?php echo $value['address']; ?></p>
-                                            </div>
+            <div class="<?php echo (count($lastFiveVisitors)) ? 'col-xl-9 col-xxl-8 col-lg-7' : 'col-12' ?>">
+                <div class="card">	
+                    <div class="card-header border-0 pb-0">
+                        <h3 class="fs-20 mb-0 text-black"><?php echo $graphTitle; ?></h3>
+                    </div>
+                    <div class="card-body">
+                        <?php if (count($topRated)) { ?>
+                            <div class="assigned-doctor owl-carousel">
+                                <?php foreach ($topRated as $value) { ?>
+                                    <div class="items">
+                                        <div class="text-center">
+                                            <img src="<?php echo $value['logo']; ?>" alt="" >
+                                            <h5 class="fs-16 mb-1 font-w600"><a class="text-black" href="#" onclick="event.preventDefault()"><?php echo $value['name']; ?></a></h5>
+                                            <span class="text-primary mb-2 d-block"><?php echo $ratedType ?></span>
+                                            <p class="fs-12"><?php echo $value['address']; ?></p>
                                         </div>
-                                    <?php } ?>
-                                </div>
-                            <?php } else { ?>
-                                <p class="text-center text-info"><i class="fa fa-info-circle fa-3x"></i></p>
-                                <p class="text-center">When you interact with <?php echo strtolower($ratedType).'s' ?>, they will appear here. </p>
-                            <?php } ?>
-                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        <?php } else { ?>
+                            <p class="text-center text-info"><i class="fa fa-info-circle fa-3x"></i></p>
+                            <p class="text-center">When you interact with <?php echo strtolower($ratedType).'s' ?>, they will appear here. </p>
+                        <?php } ?>
                     </div>
                 </div>
+            </div>
 
-                <?php if (count($lastFiveVisitors)) { ?>
-                    <div class="col-xl-3 col-xxl-4 col-lg-5">
-                        <div class="card border-0 pb-0">
-                            <div class="card-header flex-wrap border-0 pb-0">
-                                <h3 class="fs-20 mb-0 text-black">Recent Patient</h3>
-                                <a href="<?php echo base_url().'/visitors'; ?>" class="text-primary font-w500">View more >></a>
-                            </div>
-                            <div class="card-body"> 
-                                <div id="DZ_W_Todo2" class="widget-media dz-scroll ps ps--active-y height320">
-                                    <ul class="timeline">
-                                        <?php foreach ($lastFiveVisitors as $visitor) { ?>
-                                            <li>
-                                                <div class="timeline-panel flex-wrap">
-                                                    <div class="media mr-3 media-success">
-                                                        <i class="fa fa-user-circle"></i>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h5 class="mb-1"><a class="text-black" href="#"><?php echo $visitor->fullname ?></a></h5>
-                                                        <span class="fs-14"><?php echo date("jS M, Y", $visitor->visited_on) ?></span>
-                                                    </div>
+            <?php if (count($lastFiveVisitors)) { ?>
+                <div class="col-xl-3 col-xxl-4 col-lg-5">
+                    <div class="card border-0 pb-0">
+                        <div class="card-header flex-wrap border-0 pb-0">
+                            <h3 class="fs-20 mb-0 text-black">Recent Patient</h3>
+                            <a href="<?php echo base_url().'/visitors'; ?>" class="text-primary font-w500">View more >></a>
+                        </div>
+                        <div class="card-body"> 
+                            <div id="DZ_W_Todo2" class="widget-media dz-scroll ps ps--active-y height320">
+                                <ul class="timeline">
+                                    <?php foreach ($lastFiveVisitors as $visitor) { ?>
+                                        <li>
+                                            <div class="timeline-panel flex-wrap">
+                                                <div class="media mr-3 media-success">
+                                                    <i class="fa fa-user-circle"></i>
                                                 </div>
-                                            </li>
-                                        <?php } ?>
-                                    </ul>
-                                </div>
+                                                <div class="media-body">
+                                                    <h5 class="mb-1"><a class="text-black" href="#"><?php echo $visitor->fullname ?></a></h5>
+                                                    <span class="fs-14"><?php echo date("jS M, Y", $visitor->visited_on) ?></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
                             </div>
-                        </div>
-                    </div>
-                <?php } ?>
-            <?php } else { ?>
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Transactions</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover table-stripped table-responsive-sm">
-                                    <thead>
-                                        <tr>
-                                            <th>Invoice</th>
-                                            <th>Patient</th>
-                                            <th>Date</th>
-                                            <th>Amount</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><a href="javascript:void(0)">Order #26589</a>
-                                            </td>
-                                            <td>Herman Beck</td>
-                                            <td><span class="text-muted">Oct 16, 2017</span>
-                                            </td>
-                                            <td>$45.00</td>
-                                            <td><span class="badge badge-success">Paid</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="javascript:void(0)">Order #58746</a>
-                                            </td>
-                                            <td>Mary Adams</td>
-                                            <td><span class="text-muted">Oct 12, 2017</span>
-                                            </td>
-                                            <td>$245.30</td>
-                                            <td><span class="badge badge-success light">Paid</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="javascript:void(0)">Order #98458</a>
-                                            </td>
-                                            <td>Caleb Richards</td>
-                                            <td><span class="text-muted">May 18, 2017</span>
-                                            </td>
-                                            <td>$38.00</td>
-                                            <td><span class="badge badge-success light">Paid</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="javascript:void(0)">Order #32658</a>
-                                            </td>
-                                            <td>June Lane</td>
-                                            <td><span class="text-muted">Apr 28, 2017</span>
-                                            </td>
-                                            <td>$77.99</td>
-                                            <td><span class="badge badge-success">Paid</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-footer text-center">
-                            <a href="" class="btn btn-link">View more <i class="fa fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -339,10 +257,6 @@
     elseif (session('acct_type') == 'blood-bank') {
         $first_title = "Blood Requests Received";
         $second_title = "Blood Offers Sent";
-    }
-    elseif (session('acct_type') == 'pharmacy') {
-        $first_title = "Transactions Completed";
-        $second_title = "Total Patients";
     }
 ?>
 

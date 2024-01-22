@@ -6,7 +6,6 @@ use App\Controllers\BaseController;
 use App\Models\AuthModel;
 use App\Models\BloodBankModel;
 use App\Models\HospitalModel;
-use App\Models\PharmacyModel;
 
 class ProfilePageController extends BaseController
 {
@@ -18,7 +17,7 @@ class ProfilePageController extends BaseController
     
     public function __construct (){
         $this->arrayOfAcceptableAccountTypes = [
-            'hospital', 'blood-bank', 'pharmacy'
+            'hospital', 'blood-bank'
         ];
 
         $this->isUserSignedIn();
@@ -70,10 +69,6 @@ class ProfilePageController extends BaseController
             elseif (session('acct_type') == 'hospital') {
                 $profileToUpdate = new HospitalModel();
                 $tableUnique = "hospitals_tbl";
-            }
-            elseif (session('acct_type') == 'pharmacy') {
-                $profileToUpdate = new PharmacyModel();
-                $tableUnique = "pharmacies_tbl";
             }
             
             $rules = [

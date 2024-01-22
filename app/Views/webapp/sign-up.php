@@ -14,9 +14,6 @@
     if ($accountType == 'hospital') {
         $imageUrl = base_url('/webapp/images/hospital-register-bg-1.png');
     }
-    elseif ($accountType == 'pharmacy') {
-        $imageUrl = base_url('/webapp/images/pharmacy-register-bg-1.png');
-    }
     else {
         $imageUrl = base_url('/webapp/images/blood-bank-register-bg-1.png');
     }

@@ -81,9 +81,6 @@ $routes->post('/record-payment-information/(:num)', 'PaymentController::recordTr
 $routes->get('/browse-blood-offers/(:num)', 'DashboardController::getAllBloodOffersFromDonors');
 $routes->post('/send-request-offer/(:num)', 'DashboardController::sendRequestOfferForWeb');
 
-// Health Insurance
-$routes->get('/health-insurance', 'HealthInsuranceController::index');
-
 // Inventory
 $routes->get('/inventory', 'BloodGroupStockController::index');
 $routes->get('/inventory-history/(:any)', 'BloodGroupStockController::stockHistory');

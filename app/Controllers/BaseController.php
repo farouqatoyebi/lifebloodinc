@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Models\BloodBankModel;
 use App\Models\HospitalModel;
-use App\Models\PharmacyModel;
 use App\Models\UserModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
@@ -135,22 +134,6 @@ class BaseController extends Controller
         }
     }
 
-    public function isAdminUserSignedIn()
-    {
-        if ($_SERVER['PATH_INFO'] == '/admin-login') {
-            if (session('adminIsLoggedIn')) {
-                header('Location: '.base_url().'/admin/dashboard');
-                exit();
-            }
-        }
-        else {
-            if (!session('adminIsLoggedIn')) {
-                header('Location: '.base_url().'/admin-login');
-                exit();
-            }
-        }
-    }
-
     public function webAppSetLoginInformation($data)
     {
         $session = session();
@@ -264,11 +247,6 @@ class BaseController extends Controller
 
             $userProfileMoreInformation = $bloodBankModel->findAccount($accountAuthID);
         }
-        elseif ($accountType == 'pharmacy') {
-            $pharmacyModel = new PharmacyModel();
-            
-            $userProfileMoreInformation = $pharmacyModel->findAccount($accountAuthID);
-        }
         elseif ($accountType == 'user') {
             $userModel = new UserModel();
             
@@ -292,11 +270,6 @@ class BaseController extends Controller
             $bloodBankModel = new BloodBankModel();
 
             $userProfileMoreInformation = $bloodBankModel->find($accountID);
-        }
-        elseif ($accountType == 'pharmacy') {
-            $pharmacyModel = new PharmacyModel();
-            
-            $userProfileMoreInformation = $pharmacyModel->find($accountID);
         }
         elseif ($accountType == 'user') {
             $userModel = new UserModel();

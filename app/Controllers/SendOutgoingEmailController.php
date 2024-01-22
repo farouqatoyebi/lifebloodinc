@@ -1000,9 +1000,6 @@ class SendOutgoingEmailController extends BaseController
                 elseif ($value->donor_type == 'blood-bank') {
                     $table_to_use = 'blood_banks_tbl';
                 }
-                elseif ($value->donor_type == 'pharmacy') {
-                    $table_to_use = 'pharmacies_tbl';
-                }
                 else {
                     $table_to_use = 'users_tbl';
                 }

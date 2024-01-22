@@ -31,7 +31,7 @@ class AuthModel extends Model
     protected $validationRules      = [
         'email' => 'required|valid_email|is_unique[auth_tbl.email,id,{id}]',
         'phone' => 'required|min_length[11]',
-        'acct_type' => 'required|in_list[user,hospital,blood-bank,pharmacy]',
+        'acct_type' => 'required|in_list[user,hospital,blood-bank]',
 
     ];
 
