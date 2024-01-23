@@ -151,11 +151,6 @@ class BaseController extends Controller
                 $arrayOfSignedInValue['acct_type'] = $data->acct_type;
                 $arrayOfSignedInValue['status'] = $data->status;
                 $arrayOfSignedInValue['logo'] = $accountName->logo;
-
-                if ($data->acct_type == 'hospital') {
-                    $arrayOfSignedInValue['slug'] = $accountName->url_slug;
-                    $arrayOfSignedInValue['slugQR'] = $accountName->slug_qr_code;
-                }
             }
         }
 
@@ -629,23 +624,6 @@ class BaseController extends Controller
 
         return $allPendingRequestsSentOut;
     }
-
-    public function getServiceChargeFee($app_type, $return_column = 'amount')
-    {
-        $db = Database::connect();
-        $builder = $db->table('betalife_rate_tbl');
-        $builder->where('service_type', $app_type);
-        $builder->orderBy('created_at', 'DESC');
-        $builder->limit(1);
-        $result = $builder->get();
-        $result = $result->getRow();
-
-        if ($result && $return_column) {
-            return $result->$return_column;
-        }
-
-        return $result;
-    }
     
     public function generateOTP($length = 0)
     {
@@ -690,95 +668,6 @@ class BaseController extends Controller
         return false;
     }
 
-    public function getAvailableBanks()
-    {
-        $db = Database::connect();
-        $paystack = new Paystack();
-        $builder = $db->table('available_banks_tbl');
-        $result = $builder->get();
-        $result = $result->getResult();
-
-        if (!$result) {
-            $curl = curl_init();
-
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://api.paystack.co/bank',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'GET',
-                CURLOPT_HTTPHEADER => array(
-                    'Authorization: Bearer '.$paystack->get_public_key()
-                ),
-            ));
-
-            $response = curl_exec($curl);
-            $response = json_decode($response);
-            curl_close($curl);
-
-            foreach ($response->data as $key => $value) {
-                $builder = $db->table('available_banks_tbl');
-                $builder->where('bank_id', $value->id);
-                $result = $builder->get();
-                $result = $result->getRow();
-                
-                if (!$result) {
-                    $builder = $db->table('available_banks_tbl');
-                    $builder->insert([
-                        'name' => $value->name,
-                        'code' => $value->code,
-                        'country' => $value->country,
-                        'currency' => $value->currency,
-                        'type' => $value->type,
-                        'bank_id' => $value->id,
-                        'created_at' => time(),
-                    ]);
-                }
-            }
-
-            return $this->getAvailableBanks();
-        }
-        
-        return $result;
-    }
-
-    public function verifyBankAccountInformation($accountNumber, $accountCode)
-    {
-        $paystack = new Paystack();
-
-        $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://api.paystack.co/bank/resolve?account_number='.$accountNumber.'&bank_code='.$accountCode,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'GET',
-        CURLOPT_HTTPHEADER => array(
-            'Authorization: Bearer '.$paystack->get_secret_key()
-        ),
-        ));
-
-        $response = curl_exec($curl);
-        curl_close($curl);
-
-        $response = json_decode($response);
-
-        if ($response) {
-            if ($response->status) {
-                return $response->data;
-            }
-        }
-
-        return false;
-    }
-
     public function createTransferRecipient($data)
     {
         $paystack = new Paystack();
@@ -814,66 +703,6 @@ class BaseController extends Controller
         
         
         return false;
-    }
-
-    public function getBankInformationFromDB($bankCode)
-    {
-        $db = Database::connect();
-        $builder = $db->table('available_banks_tbl');
-        $builder->where('code', $bankCode);
-        $result = $builder->get();
-        $result = $result->getRow();
-
-        return $result;
-    }
-
-    public function initiateBulkTransfer($recipientAccountCode, $amount)
-    {
-        $paystack = new Paystack();
-        $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://api.paystack.co/transfer/bulk',
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS =>'{
-            "currency": "NGN",
-            "source": "balance",
-            "transfers": [
-                {
-                    "amount": '.$amount.',
-                    "recipient": "'.$recipientAccountCode.'"
-                }
-            ]
-        }',
-        CURLOPT_HTTPHEADER => array(
-            'Authorization: Bearer '.$paystack->get_secret_key(),
-            'Content-Type: application/json'
-        ),
-        ));
-
-        $response = curl_exec($curl);
-
-        curl_close($curl);
-        $response = json_decode($response);
-
-        if ($response) {
-            if ($response->status) {
-                return $response->data;
-            }
-        }
-        
-        return false;
-    }
-
-    public function isAccountInformationComplete()
-    {
-        # code...
     }
 
     public function bloodInventoryDetails($auth_id, $auth_type, $blood_group)

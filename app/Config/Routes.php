@@ -71,7 +71,6 @@ $routes->get('/view-delivery-information/(:num)', 'DashboardController::viewHosp
 $routes->post('/verify-delivery-otp/(:num)', 'DashboardController::verifyDeliveryOTPInformation');
 
 $routes->get('/wallet', 'DashboardController::walletPage');
-$routes->post('/process-withdrawal-disbursement', 'DashboardController::processWithdrawalDisbursement');
 
 $routes->get('/payment-summary/(:num)', 'PaymentController::seePaymentBreakdownSummary');
 $routes->post('/create-new-request/(:num)', 'PaymentController::createNewRequestFromWhatsLeft');
@@ -92,19 +91,6 @@ $routes->get('/settings', 'SettingsPageController::settings');
 // Blood Bank set rates
 $routes->get('/settings/set-rates', 'SettingsPageController::bloodBankSetRates');
 $routes->post('/settings/set-rates', 'SettingsPageController::bloodBankStoreSetRates');
-$routes->get('/settings/bank-information', 'SettingsPageController::BankInformationPage');
-$routes->post('/settings/bank-information', 'SettingsPageController::storeBankInformation');
-
-$routes->get('/hospital/(:any)', 'HospitalController::index');
-$routes->post('/hospital/(:any)', 'HospitalController::recordVistForHospital');
-
-// Hospitals visitors links
-$routes->get('/visitors', 'DashboardController::allHospitalVisitors');
-$routes->post('/visitor/details', 'HospitalController::fetchVisitorsDetails');
-$routes->post('/view-visitor-details', 'HospitalController::fetchVisitorsDetailsPreview');
-$routes->post('/get-visitor-medical-details', 'HospitalController::fetchVisitorsMedicalDetails');
-$routes->post('/save-visitor-record', 'HospitalController::saveVisitorMedicalRecord');
-$routes->post('/save-visitor-additional-record', 'HospitalController::saveVisitorAdditionalMedicalRecord');
 
 // Notifications
 $routes->get('/notifications', 'NotificationsController::index');

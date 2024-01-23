@@ -83,20 +83,6 @@ class HospitalModel extends Model
 
                 session()->set(['slug' => $generatedURLSlug]);
             }
-
-            if (session('slug') && !$result->slug_qr_code) {
-                $slugQRInfo = $baseController->generateHospitalLinkQRCode(base_url().'/hospital/'.session('slug'));
-
-                if ($slugQRInfo) {
-                    $builder = $this->db->table($this->table);
-                    $builder->where('id ', $hospital_acct_id);
-                    $builder->update([
-                        "slug_qr_code" => $slugQRInfo->file
-                    ]);
-
-                    session()->set(['slugQR' => $slugQRInfo->file]);
-                }
-            }
         }
 
         return true;

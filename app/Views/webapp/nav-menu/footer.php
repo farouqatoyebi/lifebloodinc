@@ -93,36 +93,6 @@
             }
         }
 
-        function payWithPaystack(paymentID, s_key, email, amount) {
-            var tx_ref = 'betalife__'+Math.floor((Math.random() * 1000000000) + paymentID);
-            recordPaymentInformation(paymentID, tx_ref);
-
-            let handler = PaystackPop.setup({
-                key: s_key, // Replace with your public key
-                email: email,
-                amount: amount * 100,
-                ref: tx_ref, // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-                // label: "Optional string that replaces customer email"
-                onClose: function(){
-                    $(".btn-pay-now").html('Pay Now');
-                    $(".btn-pay-now").removeAttr('disabled');
-                    $(".btn-pay-now").removeClass('disabled');
-
-                    alert('Transaction terminated');
-                },
-                callback: function(response){
-                    let message = 'Payment complete! Reference: ' + response.reference;
-
-                    recordPaymentInformation(paymentID, response.reference, 'validate');
-                    
-                    $(".modal-title").text("Payment Completed!");
-                    $(".modal-body").html('<div class="text-center text-success"><p><i class="fa fa-check-circle fa-3x"></i></p> <p>'+message+'</p></div>');
-                }
-            });
-
-            handler.openIframe();
-        }
-
         function beginPaymentProcessing(paymentID) {
             $.ajax({
                 url : '<?php echo base_url().'/begin-payment-process/'; ?>'+paymentID,
@@ -1520,89 +1490,6 @@
                 else {
                     $(".new_due_date").addClass("d-none");
                     $(".due_date").attr("disabled", "disabled");
-                }
-            });
-
-            $("body").on("submit", ".make-payment-now", function(e) {
-                e.preventDefault();
-                $(".due_date_error").text("");
-                $(".create_new_request").text("");
-                $(".error_msg").html("");
-
-                $(".btn-pay-now").html('Processing payment... <i class="fa fa-spin fa-spinner"></i>');
-                $(".btn-pay-now").attr('disabled', 'disabled');
-                $(".btn-pay-now").addClass('disabled');
-
-                var new_request_val = $("input[name='create_new_request']:checked").val(), due_date = $(".due_date").val(), request = $("input#request_info").val();
-
-                if (new_request_val) {
-                    if (new_request_val == 'yes') {
-                        if (due_date) {
-                            var calcDueDateSubmitted = new Date(due_date); //dd-mm-YYYY
-                            var currentDateValue = new Date();
-                            currentDateValue.toDateString();
-                            calcDueDateSubmitted.toDateString();
-
-                            if(calcDueDateSubmitted < currentDateValue || calcDueDateSubmitted == currentDateValue) {
-                                $(".due_date_error").text("* Please select a future due date.");
-
-                                $(".btn-pay-now").html('Pay Now');
-                                $(".btn-pay-now").removeAttr('disabled');
-                                $(".btn-pay-now").removeClass('disabled');
-
-                                return ;
-                            }
-
-                            $.ajax({
-                                url : '<?php echo base_url()."/create-new-request/"; ?>'+request,
-                                method : 'POST',
-                                data : {
-                                    create_new_request : new_request_val,
-                                    due_date : due_date
-                                },
-                                success:function(response) {
-                                    if (response.status == 200) {
-                                        $(".error_msg").html("<div class='alert alert-success'>"+response.message+"</div>");
-                                        $(".add-new-request-segment").remove();
-                                        beginPaymentProcessing(request);
-                                    }
-                                    else {
-                                        if (response.validation) {
-                                            $(".due_date_error").text(response.validation.due_date);
-                                            $(".create_new_request").text(response.validation.create_new_request);
-                                        }
-                                        else {
-                                            $(".error_msg").html("<div class='alert alert-danger'>"+response.message+"</div>");
-                                        }
-
-                                        $(".btn-pay-now").html('Pay Now');
-                                        $(".btn-pay-now").removeAttr('disabled');
-                                        $(".btn-pay-now").removeClass('disabled');
-                                    }
-                                },
-                                complete:function() {
-
-                                }
-                            });
-                        }
-                        else {
-                            $(".due_date_error").text("Required");
-
-                            $(".btn-pay-now").html('Pay Now');
-                            $(".btn-pay-now").removeAttr('disabled');
-                            $(".btn-pay-now").removeClass('disabled');
-
-                            return ;
-                        }
-                    }
-                    else {
-                        $(".add-new-request-segment").remove();
-                        beginPaymentProcessing(request);
-                    }
-                }
-                else {
-                    $(".add-new-request-segment").remove();
-                    beginPaymentProcessing(request);
                 }
             });
 

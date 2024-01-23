@@ -1,7 +1,6 @@
 <?php 
     use App\Controllers\BaseController;
     $basecontroller = new BaseController();
-    $serviceChargeFee = $basecontroller->getServiceChargeFee('web-app', 'amount');
 ?>
 <div class="content-body">
     <div class="container-fluid">
@@ -79,11 +78,8 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="text-right">
-                                <?php $serviceChargeFee = $serviceChargeFee ? $serviceChargeFee : 5000; ?>
-
                                 <p class=""><span class="h6 text-muted">Sub-Total:</span> <span class="font-weight-bold h4">NGN <?php echo number_format($totalAmountToBePaid); ?></span></p>
-                                <p class=""><span class="h6 text-muted">Service Charge:</span> <span class="font-weight-bold h4">NGN <?php echo number_format($serviceChargeFee); ?></span></p>
-                                <p class=""><span class="h6 text-muted">Total:</span> <span class="font-weight-bold h4">NGN <?php echo number_format($totalAmountToBePaid + $serviceChargeFee); ?></span></p>
+                                <p class=""><span class="h6 text-muted">Total:</span> <span class="font-weight-bold h4">NGN <?php echo number_format($totalAmountToBePaid); ?></span></p>
                             </div>
                             <hr>
 
@@ -91,7 +87,7 @@
                                 <?php if ($allAcceptedOffers) { ?>
                                     <div class="row mt-4">
                                         <div class="col-lg-4">
-                                            <a href="<?php echo base_url().'/'; ?>" class="btn btn-outline-primary">
+                                            <a href="#" class="btn btn-outline-primary">
                                                 <i class="fa fa-credit-card-alt" aria-hidden="true"></i> &nbsp;Pay with Wallet
                                             </a>
                                         </div>
@@ -130,96 +126,6 @@
                                     </p>
                                 </div>
                             <?php } ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <?php } ?>
-
-        <?php if ($allAcceptedOffers && $request_info->status == 'pending') { ?>
-            <!-- Modal -->
-            <div class="modal fade" id="transferMoneyModal" tabindex="-1" aria-labelledby="transferMoneyModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title text-center" id="transferMoneyModalLabel">Make Payment via Transfer</h3>
-                        </div>
-
-                        <div class="modal-body">
-                            <form action="" method="post" class="make-payment-now">
-                                <div class="border rounded p-3">
-                                    <h4 class="h4">Payment Breakdown</h4>
-                                    <hr>
-
-                                    <div class="">
-                                        <div class="row">
-                                            <div class="col-3 mb-3">
-                                                <span class="h6 text-muted">Sub-Total:</span>
-                                            </div> 
-
-                                            <div class="col-9 mb-3">
-                                                <span class="font-weight-bold h4">NGN <?php echo number_format($totalAmountToBePaid); ?></span>
-                                            </div>
-
-                                            <div class="col-3 mb-3">
-                                                <span class="h6 text-muted">Service Charge:</span>
-                                            </div>
-
-                                            <div class="col-9 mb-3">
-                                                <span class="font-weight-bold h4">NGN <?php echo number_format($serviceChargeFee); ?></span>
-                                            </div>
-
-                                            <div class="col-3 mb-3">
-                                                <span class="h6 text-muted">Total:</span>
-                                            </div> 
-
-                                            <div class="col-9 mb-3">
-                                                <span class="font-weight-bold h4">NGN <?php echo number_format($totalAmountToBePaid + $serviceChargeFee); ?></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <input type="hidden" name="request_info" value="<?php echo $requestID; ?>" id="request_info">
-                                
-                                <?php if ($offersLeftToAccept && !$basecontroller->hasGeneratedOldRequest($requestID)) { ?>
-                                    <div class="border rounded p-3 mt-3 add-new-request-segment">
-                                        <h4 class="h4">Would you like to create a new request off of what is left to complete your request?</h4>
-                                        
-                                        <div class="form-group">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input request_radio" type="radio" name="create_new_request" id="yes_to_request" value="yes" required>
-                                                <label class="form-check-label" for="yes_to_request">Yes</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input request_radio" type="radio" name="create_new_request" id="no_to_request" value="no" required>
-                                                <label class="form-check-label" for="no_to_request">No</label>
-                                            </div>
-                                            <small class="create_new_request text-danger"></small>
-                                        </div>
-
-                                        <div class="form-group d-none new_due_date">
-                                            <label for=""><sup class="text-danger font-weight-bold">*</sup> Extend Due Date</label>
-                                            <input type="date" class="form-control due_date" name="due_date" min="<?php echo date("Y-m-d", strtotime("tomorrow")) ?>" disabled required />
-                                            <small class="due_date_error text-danger"></small>
-                                        </div>
-                                    </div>
-                                <?php } ?>
-                                
-                                <div class="border rounded p-3 mt-3">
-                                    <div class="text-center">
-                                        <p class="text-info"><i class="fa fa-info-circle"></i> By clicking on pay now, you agree to our terms and conditions with regards to our payment system.</p>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-block btn-primary btn-pay-now">
-                                        Pay Now
-                                    </button>
-                                </div>
-
-                                <div class="error_msg"></div>
-                            </form>
                         </div>
                     </div>
                 </div>

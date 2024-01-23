@@ -349,63 +349,6 @@ class BloodBankModel extends Model
         return false;
     }
 
-    public function getBankDetailsInformation($bloodBankID)
-    {
-        $builder = $this->db->table('bank_details');
-        $builder = $builder->where('auth_id', $bloodBankID);
-        $builder = $builder->where('auth_type', 'blood-bank');
-        $builder = $builder->get();
-        $bankDeets = $builder->getRow();
-
-        return $bankDeets;
-    }
-
-    public function saveBankAccountDetails($data)
-    {
-        $builder = $this->db->table('bank_details');
-        $builder = $builder->where('auth_id', $data['auth_id']);
-        $builder = $builder->where('auth_type', $data['auth_type']);
-        $builder = $builder->get();
-        $result = $builder->getRow();
-
-        if ($result) {
-            $builder = $this->db->table('bank_details');
-            $builder = $builder->where('auth_id', $data['auth_id']);
-            $builder = $builder->where('auth_type', $data['auth_type']);
-            $data['updated_at']= time();
-
-            $builder->update($data);
-        }
-        else {
-            $data['created_at']= time();
-
-            $builder = $this->db->table('bank_details');
-            $builder->insert($data);
-        }
-
-        return true;
-    }
-
-    public function saveWithdrawalRequest($data)
-    {
-        $builder = $this->db->table('withdrawal_tbl');
-        $builder = $builder->insert($data);
-
-        return true;
-    }
-
-    public function getWithdrawalBreakdownHistory($bloodBankID)
-    {
-        $builder = $this->db->table('withdrawal_tbl');
-        $builder = $builder->where('auth_id', $bloodBankID);
-        $builder = $builder->where('auth_type', 'blood-bank');
-        $builder = $builder->orderBy('status', 'ASC');
-        $builder = $builder->get();
-        $result = $builder->getResult();
-
-        return $result;
-    }
-
     public function getHospitalsBloodBankHasDoneWithBusinessWith($bloodBankID, $return_type = 'count')
     {
         $builder = $this->db->table('blood_request_delivery_tbl');

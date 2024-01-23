@@ -11,6 +11,12 @@ use App\Controllers\BaseController;
 
 class PaymentController extends BaseController
 {
+    protected $arrayOfAcceptableAccountTypes;
+    protected $authModel;
+    protected $bloodBankModel;
+    protected $hospitalModel;
+    protected $outgoingEmails;
+    protected $bloodDonationModel;
     public function __construct (){
         $this->arrayOfAcceptableAccountTypes = [
             'hospital', 'blood-bank'
@@ -158,10 +164,6 @@ class PaymentController extends BaseController
 
             if ($allAcceptedOffers) {
                 $finalAmount = 0;
-                $serviceChargeFee = $this->getServiceChargeFee('web-app', 'amount');
-
-                $serviceChargeFee = $serviceChargeFee ? $serviceChargeFee : 5000;
-
                 foreach ($allAcceptedOffers as $key => $value) {
                     $finalAmount += ($value->amount_per_pint * $value->no_of_pints_confirmed);
                 }
@@ -169,7 +171,7 @@ class PaymentController extends BaseController
                 if ($finalAmount) {
                     $response = [
                         'status' => 200,
-                        'amount' => $finalAmount + $serviceChargeFee,
+                        'amount' => $finalAmount,
                         's_key' => $paystackModel->get_public_key(),
                         'email' => session('email'),
                     ];
@@ -205,18 +207,16 @@ class PaymentController extends BaseController
         if ($requestID) {
             $allAcceptedOffers = $this->bloodDonationModel->getAllAcceptedOffersForRequest($requestID);
             $finalAmount = 0;
-            $serviceChargeFee = $this->getServiceChargeFee('web-app', 'amount');
             $tx_ref = $this->request->getVar('tx_ref');
             $action = $this->request->getVar('action');
 
-            $serviceChargeFee = $serviceChargeFee ? $serviceChargeFee : 5000;
             $status = 'pending';
 
             foreach ($allAcceptedOffers as $key => $value) {
                 $finalAmount += ($value->amount_per_pint * $value->no_of_pints_confirmed);
             }
 
-            $finalAmount = $finalAmount + $serviceChargeFee;
+            $finalAmount = $finalAmount;
 
             if ($action == 'validate') {
                 if ($paystackModel->verifyPayment($tx_ref, $finalAmount)) {

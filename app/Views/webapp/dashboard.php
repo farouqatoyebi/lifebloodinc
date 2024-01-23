@@ -5,24 +5,7 @@
                 <h3 class="text-black font-w600">Welcome, <?php echo session('name'); ?>!</h3>
                 <p class="mb-0 fs-18"><?php echo ucwords(str_replace("-", " ", session('acct_type'))); ?> Dashboard</p>
             </div>
-            
-            <?php if (session('acct_type') == 'hospital') { ?>
-                <div class="input-group search-area ml-auto d-inline-flex form-width-control">
-                    <input type="text" class="form-control" id="copy-text" placeholder="Search here" value="<?php echo base_url().'/hospital/'.session('slug'); ?>" readonly>
-                    <div class="input-group-append">
-                        <button type="button" class="btn btn-primary btn-sm copy-btn" onclick="copyToClipboard()"><i class="fa fa-copy"></i></button>
-                    </div>
-                </div>
-            <?php } ?>
         </div>
-
-        <?php if (session('slugQR')) { ?>
-            <div class="text-right mb-5 mt-0">
-                <a href="<?php echo base_url().'/generator/qr/'.session('slugQR'); ?>" class="btn btn-primary btn-sm">
-                    Download QR Image
-                </a>
-            </div>
-        <?php } ?>
 
         <div class="row mb-5">
             <div class="col-xl-3 col-xxl-6 col-sm-6">

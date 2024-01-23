@@ -219,14 +219,14 @@
                                 <i class="flaticon-381-briefcase"></i>
                                     <span class="nav-text">Wallet</span>
                                 </a>
-                            </li>
+                            </li> -->
                             
                             <li>
                                 <a href="<?php echo base_url().'/inventory'; ?>" class="ai-icon" aria-expanded="false">
                                 <i class="fa fa-university"></i>
                                     <span class="nav-text">Inventory</span>
                                 </a>
-                            </li> -->
+                            </li>
                         <?php } ?>
                         
                         <li>

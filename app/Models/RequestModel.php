@@ -108,21 +108,6 @@ class RequestModel extends Model
         return $data;
     }
 
-    public function betalife_rate($data=false)
-    {
-
-        $builder = $this->db->table('betalife_rate_tbl');
-        $query = $builder->get();
-        $result = $query->getLastRow();
-
-        if ($data) {
-            return $result;
-        }
-        else {
-            return $result->amount;
-        }
-    }
-
     public function findNearbyDonors($hospital_lat, $hospital_lon)
     {
         /*

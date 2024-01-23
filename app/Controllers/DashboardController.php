@@ -262,36 +262,6 @@ class DashboardController extends BaseController
         return $this->response->setJSON($response);
     }
 
-    public function allHospitalVisitors()
-    {
-        if ($this->accountAuthType == 'hospital') {
-            $baseController = new BaseController();
-
-            $startDateToRender = '';
-            $endDateToRender = '';
-
-            if (count($_GET)) {
-                if ($_GET['start_date'] && $_GET['end_date']) {
-                    $startDateToRender = strtotime(date("Y-m-d 00:00:00", strtotime($_GET['start_date'])));
-                    $endDateToRender = strtotime(date("Y-m-d 23:59:59"), strtotime($_GET['end_date']));
-                }
-            }
-
-            $accountInformation = $this->user_info;
-    
-            $allVisitorsRendered = $this->hospitalModel->getAllVisitors($accountInformation->id, $startDateToRender, $endDateToRender);
-            
-            $data['v'] = 'view-visitors-list';
-            $data['results']['page_title'] = 'Visitors List';
-            $data['results']['allVisitorsRendered'] = $allVisitorsRendered;
-    
-            echo view('webapp/template', $data);
-        }
-        else {
-            return redirect()->route('dashboard');
-        }
-    }
-
     public function getAllActivitiesSaved()
     {
         $userProfileInformation = $this->user_info;
@@ -332,7 +302,10 @@ class DashboardController extends BaseController
 
             if ($allActivities) {
                 $allActivities->offer = $bloodDonationModel->getOffersForPassedRequest($allActivities->id, $userProfileInformation->id);
-                $confirmPaymentMade = $this->bloodBankModel->confirmRequestPaymentMade($allActivities->id);
+                // $confirmPaymentMade = $this->bloodBankModel->confirmRequestPaymentMade($allActivities->id);
+                $confirmPaymentMade = (object) [
+                    "status" => "completed"
+                ];
 
                 if (!$allActivities->offer) {
                     return redirect()->route('dashboard');
@@ -624,102 +597,6 @@ class DashboardController extends BaseController
             }
             else {
                 $response = [];
-                $response["validation"] = $validation->getErrors();
-            }
-        }
-
-        return $this->response->setJSON($response);
-    }
-
-    public function walletPage()
-    {
-        $walletBreakdown = $this->walletModel->getAccountWalletBreakdown();
-        $allTransactions = $this->bloodBankModel->getAllHospitalThatHasConfirmedBloodBanktTransactions();
-        $bankDetails = $this->bloodBankModel->getBankDetailsInformation($this->user_info->id);
-        $allWithdrawalsMade = $this->bloodBankModel->getWithdrawalBreakdownHistory($this->user_info->id);
-
-        if (!$bankDetails) {
-            header('Location: '.base_url().'/settings/bank-information?verify=true');
-            exit();
-        }
-
-        $data['v'] = 'wallet';
-        $data['results']['page_title'] = 'Wallet';
-        $data['results']['walletBreakdown'] = $walletBreakdown;
-        $data['results']['walletAmount'] = $walletBreakdown ? $walletBreakdown->balance : 0;
-        $data['results']['walletBookBalance'] = $walletBreakdown ? $walletBreakdown->available_balance : 0;
-        $data['results']['allTransactions'] = $allTransactions;
-        $data['results']['bankDetails'] = $bankDetails;
-        $data['results']['allWithdrawalsMade'] = $allWithdrawalsMade;
-
-        echo view('webapp/template', $data);
-    }
-
-    public function processWithdrawalDisbursement()
-    {
-        $response = [];
-        helper(['form']);
-
-        // Only post requests are accepted
-        if ($this->request->getMethod() == "post") {
-            $validation =  \Config\Services::validation();
-
-            $rules = [
-                "wp_amount_withdraw" => [
-                    "label" => "Amount to Withdraw", 
-                    "rules" => "required"
-                ],
-            ];
-
-            $amountWithdrawable = 0;
-
-            $amountToWithdraw = $this->request->getVar('wp_amount_withdraw');
-            $walletBreakdown = $this->walletModel->getAccountWalletBreakdown();
-            $allowWithdrawal = false;
-
-            if ($walletBreakdown) {
-                if ($walletBreakdown->balance >= $amountToWithdraw) {
-                    $allowWithdrawal = true;
-                }
-
-                $amountWithdrawable = $walletBreakdown->balance;
-            }
-
-            if ($this->validate($rules) && $allowWithdrawal) {
-                $allWentWell = false;
-                // $bankDetails = $this->bloodBankModel->getBankDetailsInformation($this->user_info->id);
-                // $initiateTransfer = $this->initiateBulkTransfer($bankDetails->recipient_code, $amountToWithdraw);
-
-                $data = [
-                    'auth_id' => $this->user_info->id,
-                    'auth_type' => $this->accountAuthType,
-                    'amount' => $amountToWithdraw,
-                    'trasnfer_code' => '',
-                    'status' => 'pending',
-                    'created_at' => time(),
-                ];
-
-                $recordWithdrawalAttempt = $this->bloodBankModel->saveWithdrawalRequest($data);
-                $debitBloodBankWallet = $this->walletModel->debitBloodBankWallet($this->user_info->id, $amountToWithdraw);
-
-                $allWentWell = true;
-                
-
-                if ($allWentWell) {
-                    $response['status'] = 200;
-                    $response['message'] = 'A withdrawal request has been initiated. Your account will be credited once request has been approved.';
-                }
-                else {
-                    $response['status'] = 401;
-                    $response['message'] = 'We could not complete your request. Please try again.';
-                }
-            }
-            elseif (!$allowWithdrawal) {
-                $response["validation"] = [
-                    'wp_amount_withdraw' => 'You cannot make a withdrawal of more than NGN '.number_format($amountWithdrawable)
-                ];
-            }
-            else {
                 $response["validation"] = $validation->getErrors();
             }
         }

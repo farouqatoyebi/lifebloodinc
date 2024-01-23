@@ -77,8 +77,8 @@
                                                                             <div class="col-lg-6">
                                                                                 <div class="form-group">
                                                                                     <label class="font-weight-bold" for="<?php echo $requests->blood_group ?>"><?php echo $requests->blood_group ?></label>
-                                                                                    <div class="input-group mb-3 <?php if ($bloodInventoryDetails->amount_available <= 0) echo 'd-flex justify-content-center align-items-center p-2 border border-danger'; ?>">
-                                                                                        <?php if ($bloodInventoryDetails->amount_available > 0) { $canShowButton = true; ?>
+                                                                                    <div class="input-group mb-3 <?php if ($bloodInventoryDetails && $bloodInventoryDetails->amount_available <= 0) echo 'd-flex justify-content-center align-items-center p-2 border border-danger'; ?>">
+                                                                                        <?php if ($bloodInventoryDetails && $bloodInventoryDetails->amount_available > 0) { $canShowButton = true; ?>
                                                                                             <?php $htmlMax = ($requests->no_of_pints > $bloodInventoryDetails->amount_available) ? $bloodInventoryDetails->amount_available : $requests->no_of_pints; ?>
                                                                                             <span class="input-group-text bg-white border border-dark" id="basic-addon1">Pint</span>
                                                                                             <input type="number" name="wp_offer[<?php echo $requests->blood_group ?>]" value="<?php echo $htmlMax ?>" currency="NGN" rate-val="<?php echo $bloodRate; ?>" class="form-control wp_offer" max="<?php echo $htmlMax ?>" group="<?php echo $requests->blood_group ?>" min="0">

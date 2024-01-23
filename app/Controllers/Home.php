@@ -12,9 +12,7 @@ class Home extends BaseController
 
     public function index()
     {
-    	$requestModel = new \App\Models\RequestModel();
-
-    	print_r($requestModel->betalife_rate(true));
+        
 
     }
 }
