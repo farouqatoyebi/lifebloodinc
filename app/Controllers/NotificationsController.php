@@ -7,6 +7,11 @@ use App\Models\Notifications;
 
 class NotificationsController extends BaseController
 {
+    protected $arrayOfAcceptableAccountTypes;
+    protected $accountAuthID;
+    protected $accountAuthType;
+    protected $user_info;
+    protected $notifiationsModel;
     public function __construct()
     {
         $this->arrayOfAcceptableAccountTypes = [

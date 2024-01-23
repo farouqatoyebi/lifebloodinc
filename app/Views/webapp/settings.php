@@ -31,7 +31,7 @@
 
             <?php if (session('acct_type') == 'blood-bank') { ?>
                 <div class="col-6">
-                    <a href="#" class="">
+                    <a href="<?php echo base_url().'/settings/set-rates' ?>" class="">
                         <div class="card">
                             <div class="card-body">
                                 <div class="text-center">

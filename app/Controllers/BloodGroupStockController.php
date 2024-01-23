@@ -7,6 +7,12 @@ use App\Models\BloodGroupStock;
 
 class BloodGroupStockController extends BaseController
 {
+    protected $arrayOfAcceptableAccountTypes;
+    protected $accountAuthID;
+    protected $accountAuthType;
+    protected $user_info;
+    protected $stockModel;
+
     public function __construct (){
         $this->arrayOfAcceptableAccountTypes = [
             'hospital', 'blood-bank'

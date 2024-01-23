@@ -73,13 +73,19 @@
                                     <?php $allUrgencyLevels = $baseController->getAllUrgencyLevels(); $increment = 0; ?>
 
                                     <label for="">Urgency level</label>
-                                    <p class="text-danger range-level text-center font-weight-bold d-block">Urgency Level: <?php echo $allUrgencyLevels[0]->name; ?></p>
-                                    <input type="range" name="wp_urgency_level" class="form-control multi-range" list="markers" value="1" min="1" max="<?php echo count($allUrgencyLevels); ?>" step="1" id="urgency_level">
+                                    <!-- <input type="range" name="wp_urgency_level" class="form-control multi-range" list="markers" value="1" min="1" max="<?php echo count($allUrgencyLevels); ?>" step="1" id="urgency_level">
                                     <datalist id="markers">
                                         <?php foreach ($allUrgencyLevels as $key => $value) { $increment++; ?>
                                             <option value="<?php echo $increment; ?>" level-name="<?php echo $value->name; ?>"></option>
                                         <?php } ?>
-                                    </datalist>
+                                    </datalist> -->
+
+                                    <select name="wp_urgency_level" id="urgency_level" class="form-control custom-select" required>
+                                        <option value="" selected disabled>--Choose--</option>
+                                        <?php foreach ($allUrgencyLevels as $key => $value) { $increment++; ?>
+                                            <option value="<?php echo $increment; ?>" level-name="<?php echo $value->name; ?>"><?php echo $value->name; ?></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
